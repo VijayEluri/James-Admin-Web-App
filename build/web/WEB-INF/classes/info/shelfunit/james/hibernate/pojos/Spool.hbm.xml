@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 14, 2010 11:02:38 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="jamesemail" name="info.shelfunit.james.hibernate.pojos.Spool" table="spool">
+    <composite-id class="info.shelfunit.james.hibernate.pojos.SpoolId" name="id">
+      <key-property name="repositoryName" type="string">
+        <column length="100" name="repository_name"/>
+      </key-property>
+      <key-property name="messageName" type="string">
+        <column length="200" name="message_name"/>
+      </key-property>
+    </composite-id>
+    <property name="messageState" type="string">
+      <column length="30" name="message_state" not-null="true"/>
+    </property>
+    <property name="errorMessage" type="string">
+      <column length="200" name="error_message"/>
+    </property>
+    <property name="sender" type="string">
+      <column name="sender"/>
+    </property>
+    <property name="recipients" type="string">
+      <column length="65535" name="recipients" not-null="true"/>
+    </property>
+    <property name="remoteHost" type="string">
+      <column name="remote_host" not-null="true"/>
+    </property>
+    <property name="remoteAddr" type="string">
+      <column length="20" name="remote_addr" not-null="true"/>
+    </property>
+    <property name="messageBody" type="binary">
+      <column name="message_body" not-null="true"/>
+    </property>
+    <property name="messageAttributes" type="binary">
+      <column name="message_attributes"/>
+    </property>
+    <property name="lastUpdated" type="timestamp">
+      <column length="19" name="last_updated" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

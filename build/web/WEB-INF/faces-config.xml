@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="1.2" 
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+    <managed-bean>
+        <description>The bean that will hold the session data and do most of the work</description>
+        <managed-bean-name>adminUserBean</managed-bean-name>
+        <managed-bean-class>info.shelfunit.james.web.AdminUserBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <description>A bean to manage users: Add, change, delete.</description>
+        <managed-bean-name>userManagerBean</managed-bean-name>
+        <managed-bean-class>info.shelfunit.james.web.UserManagerBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <description>A bean to hold info from the Users table</description>
+        <managed-bean-name>userBean</managed-bean-name>
+        <managed-bean-class>info.shelfunit.james.hibernate.pojos.Users</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>optionsPropertiesBean</managed-bean-name>
+        <managed-bean-class>info.shelfunit.util.OptionsPropertiesBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+
+    <navigation-rule>
+        <description>This is the rule to log in to the app</description>
+        <from-view-id>/jsp/loginForm.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{adminUserBean.loginAction}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/adminMainPage.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{adminUserBean.loginAction}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to list the users</description>
+        <from-view-id>/jsp/adminMainPage.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfUsers}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/listUsers.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfUsers}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to list inbox messages</description>
+        <from-view-id>/jsp/adminMainPage.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfInboxMessages}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/listInboxMessages.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfInboxMessages}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to delete the dead letter contents</description>
+        <from-view-id>/jsp/adminMainPage.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{adminUserBean.deleteDeadLetterContents}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/adminMainPage.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{adminUserBean.deleteDeadLetterContents}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+
+    <navigation-rule>
+        <description>This is the rule to delete the dead letter contents</description>
+        <from-view-id>/jsp/listInboxMessages.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{userManagerBean.dropUser}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/adminMainPage.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{userManagerBean.dropUser}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <description>This is the rule to add users to the database</description>
+        <from-view-id>/jsp/addUserForm.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{userManagerBean.addUser}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/adminMainPage.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{userManagerBean.addUser}</from-action>
+            <from-outcome>duplicateUser</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <application>
+        <!-- message-bundle>Messages</message-bundle -->
+    </application>
+
+</faces-config>
+
+
+

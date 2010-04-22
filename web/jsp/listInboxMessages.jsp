@@ -1,8 +1,3 @@
-<%-- 
-    Document   : listInboxMessages
-    Created on : Mar 21, 2010, 9:52:28 PM
-    Author     : ericm
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -15,7 +10,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-
 
     <html>
         <head>

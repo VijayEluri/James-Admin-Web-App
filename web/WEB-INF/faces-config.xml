@@ -129,7 +129,23 @@
         <navigation-case>
             <from-action>#{userManagerBean.addUser}</from-action>
             <from-outcome>duplicateUser</from-outcome>
-            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+            <to-view-id>/jsp/addUserDuplicate.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to drop users from the database</description>
+        <from-view-id>/jsp/dropUserForm.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{userManagerBean.dropUser}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/adminMainPage.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{userManagerBean.addUser}</from-action>
+            <from-outcome>duplicateUser</from-outcome>
+            <to-view-id>/jsp/addUserDuplicate.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
 

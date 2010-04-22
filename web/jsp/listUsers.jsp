@@ -1,9 +1,3 @@
-<%-- 
-    Document   : listUsers
-    Created on : Mar 14, 2010, 12:03:26 PM
-    Author     : ericm
---%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 

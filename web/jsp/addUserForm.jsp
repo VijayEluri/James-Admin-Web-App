@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <base href="<%=basePath%>" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <style type="text/css" media="all">@import "html/layout1.css";</style>
-        <title>JSP Page</title>
+        <title>Add User Form</title>
     </head>
     <body>
 

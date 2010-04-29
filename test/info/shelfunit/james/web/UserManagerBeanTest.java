@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package info.shelfunit.james.web;
 
@@ -26,7 +22,8 @@ import java.util.UUID;
  */
 public class UserManagerBeanTest {
 
-    String username;
+    private String username;
+    private String hibernateUserName;
 
     public UserManagerBeanTest() {
     }
@@ -43,8 +40,10 @@ public class UserManagerBeanTest {
     @Before
     public void setUp() {
         UUID uuid = UUID.randomUUID();
-        username = uuid.toString();
-    }
+        this.setUsername( uuid.toString() );
+        UUID hibernateUuid = UUID.randomUUID();
+        this.setHibernateUserName( hibernateUuid.toString() );
+    } // end method setUp
 
     @After
     public void tearDown() {
@@ -67,17 +66,18 @@ public class UserManagerBeanTest {
         System.out.println( "Here is the password: " + pass );
         System.out.println( "result1: " + result1 );
         System.out.println( "result2: " + result2 );
-        assertEquals( result1, result2 );
+        org.junit.Assert.assertEquals( result1, result2 );
         // TODO review the generated test code and remove the default call to fail.
         // fail("The test case is a prototype.");
     } // end method testDigestString()
 
     /**
-     * Test of addUser method, of class UserManagerBean.
+     * Test of addUser method, of class UserManagerBean. Testing the underlying
+     * Hibernate API
      */
     @Test
-    public void testAddUser() throws Exception {
-        System.out.println( "addUser" );
+    public void testAddUserHibernate() throws Exception {
+        System.out.println( "testAddUserHibernate" );
         UserManagerBean instance = new UserManagerBean();
 
         Session session = NewHibernateUtil.getSessionFactory().openSession();
@@ -90,15 +90,15 @@ public class UserManagerBeanTest {
         + " order by username";
 
         Query q = session.createQuery( queryString );
-        q.setString( "theName", username + "%" );
+        q.setString( "theName", this.getHibernateUserName() + "%" );
         List userList = q.list();
         // user does not exist
-        assertEquals( 0, userList.size() );
+        org.junit.Assert.assertEquals( 0, userList.size() );
 
         String passAlgo = instance.digestString( pass, algorithm );
 
         Users user = new Users();
-        user.setUsername( username );
+        user.setUsername( this.getHibernateUserName() );
         user.setPwdAlgorithm( algorithm );
         user.setPwdHash( passAlgo );
         session.save( user );
@@ -106,11 +106,58 @@ public class UserManagerBeanTest {
         session.getTransaction().commit();
 
         q = session.createQuery( queryString );
-        q.setString( "theName", username + "%" );
+        q.setString( "theName", this.getHibernateUserName() + "%" );
         List userList2 = q.list();
         session.close();
         // user does exist
-        assertEquals( 1, userList2.size() );
+        org.junit.Assert.assertEquals( 1, userList2.size() );
+
+    } // end method testAddUserHibernate
+
+    /**
+     * Test the UserManagerBean.addUser method.
+     * @throws Exception
+     */
+    @Test
+    public void testAddUser() throws Exception {
+        System.out.println( "testAddUser" );
+        UserManagerBean instance = new UserManagerBean();
+
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Integer theInt = new Integer( this.hashCode() );
+        String pass = theInt.toString();
+        String algorithm = "SHA-256";
+        String queryString = "from Users where username like :theName"
+        + " order by username";
+
+        Query q = session.createQuery( queryString );
+        q.setString( "theName", this.getUsername() + "%" );
+        List userList = q.list();
+        // user does not exist
+        org.junit.Assert.assertEquals( 0, userList.size() );
+
+        String passAlgo = instance.digestString( pass, algorithm );
+
+        instance.setUsername( this.getUsername() );
+        instance.setPassword( pass );
+        instance.setAlgorithm( algorithm );
+        String result = instance.addUser();
+        org.junit.Assert.assertTrue( result.equalsIgnoreCase( "success" ) );
+
+        session.getTransaction().commit();
+
+        q = session.createQuery( queryString );
+        q.setString( "theName", this.getUsername() + "%" );
+        List userList2 = q.list();
+        session.close();
+        // user does exist
+        org.junit.Assert.assertEquals( 1, userList2.size() );
+
+        // try adding user again
+        result = instance.addUser();
+        org.junit.Assert.assertTrue( result.equalsIgnoreCase( "duplicateUser" ) );
 
     } // end method testAddUser
 
@@ -140,6 +187,34 @@ public class UserManagerBeanTest {
         // TODO review the generated test code and remove the default call to fail.
         fail( "The test case is a prototype." );
     } // end method testDropUser
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the hibernateUserName
+     */
+    public String getHibernateUserName() {
+        return hibernateUserName;
+    }
+
+    /**
+     * @param hibernateUserName the hibernateUserName to set
+     */
+    public void setHibernateUserName(String hibernateUserName) {
+        this.hibernateUserName = hibernateUserName;
+    }
 
 
 } // end class UserManagerBeanTest 

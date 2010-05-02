@@ -1,8 +1,4 @@
-<%-- 
-    Document   : adminMainPage
-    Created on : Mar 5, 2010, 7:46:09 PM
-    Author     : ericm
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -19,17 +15,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <html>
         <head>
+            <base href="<%=basePath%>" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>Admin Main Page</title>
-                    <!-- base href="<%=basePath%>" / -->
-     
+            <title>Admin Main Page</title>       
         <style type="text/css" media="all">@import "html/layout1.css";</style>
         </head>
         <body>
            
               <f:view>
     <jsp:include page="/WEB-INF/html/header.html" />
-    <h1>Member Main Page</h1>
+    <h1>JAmes Web App Admin Main Page</h1>
 
     <c:if test="${adminUserBean.loggedIn != 1}">
         <p>You are not logged in. Please go to the
@@ -59,6 +54,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <h:commandLink value="here" action="#{adminUserBean.deleteDeadLetterContents}" />
         </p>
         </h:form>
+        <p>To add a user, click <a href="jsp/addUserForm.faces">here</a>.</p>
+        <!--
+        <a href="dropUserForm.jsp"> leads to
+        http://localhost:8080/JamesWebFacesHibernate001/jsp/dropUserForm.jsp
+        Which gives an error
+        <a href="dropUserForm.faces"> seems to work
+        2010-05-01_17.45.37: But with the <base href="<%=basePath%>" /> tag in,
+        it does not work.
+        Trying jsp/dropUserForm.jsp - error
+        Trying /jsp/dropUserForm.jsp - error
+        Trying jsp/dropUserForm.faces - works
+        -->
+        <p>To drop a user, click <a href="jsp/dropUserForm.faces">here</a>.</p>
 
     </c:if> <!-- if user is logged in  -->
 

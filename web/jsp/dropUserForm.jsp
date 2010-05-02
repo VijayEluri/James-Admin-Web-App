@@ -10,7 +10,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -21,8 +20,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <title>Delete User Form</title>
     </head>
     <body>
-
-
 
     <f:view>
     <jsp:include page="/WEB-INF/html/header.html" />
@@ -39,18 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         value="#{adminUserBean.userName}" />
         decided to come to church this week.</p>
 
-                <h:form>
+        <h:form>
             <p>Enter your name: <h:inputText value="#{userManagerBean.userNameToDrop}"
                                                  id="userNameToDrop" required="true"/>
             <h:message for="name" /></p>
-
-
-
-
-            <p>
-
-
-    </p>
 
             <p><h:commandButton value="Submit" rendered="true"
                                 action="#{userManagerBean.dropUser}" /></p>

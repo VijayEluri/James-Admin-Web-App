@@ -1,5 +1,4 @@
-<%@page contentType="text/html"%>
-<%@page pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsf/core"      prefix="f" %>
@@ -15,16 +14,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <head>
             <base href="<%=basePath%>" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>Admin Main Page</title>
-        <!-- <style type="text/css" media="all">@import "/WEB-INF/html/layout1.css";</style> -->
-        <link rel="stylesheet" href="/html/layout1.css" type="text/css" media="screen" />
+            <title>Operation Successful</title>
 
+        <style type="text/css" media="all">@import "html/layout1.css";</style>
         </head>
         <body>
 
               <f:view>
     <jsp:include page="/WEB-INF/html/header.html" />
-    <h1>List Inbox Messages</h1>
+    <h1>Operation Successful</h1>
 
     <c:if test="${adminUserBean.loggedIn != 1}">
         <p>You are not logged in. Please go to the
@@ -37,20 +35,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         value="#{adminUserBean.userName}" />
         decided to come to church this week.</p>
 
- <h:dataTable id="boogabooga" border="2"
- value="#{adminUserBean.inboxCountHolderList}" var="sr123">
+        <p>Your operation (whatever it was) completed successfully. Good job!!</p>
 
-     <h:column>
-         <f:facet name="header"> <h:outputText value="Name" /> </f:facet>
-         <h:outputText value="#{sr123.userName}" />
-     </h:column>
-     <h:column>
-         <f:facet name="header"> <h:outputText value="Count" /> </f:facet>
-         <h:outputText value="#{sr123.messageCount}" />
-     </h:column>
-     
-</h:dataTable>
+        <p>Here is the status message: <h:outputText id="statusMessage1"
+        value="#{userManagerBean.statusMessage}" /></p>
 
+        <p>Go back to the <a href="jsp/adminMainPage.faces">main page</a>.</p>
+           
     </c:if> <!-- if user is logged in  -->
 
 <jsp:include page="/WEB-INF/html/footer.html" />
@@ -59,5 +50,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         </body>
     </html>
-
 

@@ -10,7 +10,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -21,8 +20,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <title>Add User Form</title>
     </head>
     <body>
-
-
 
     <f:view>
     <jsp:include page="/WEB-INF/html/header.html" />
@@ -48,7 +45,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                      id="password" required="true">
                 </h:inputText>
             </p>
-
 
             <p>
 

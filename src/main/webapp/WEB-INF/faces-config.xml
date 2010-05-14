@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+
+<faces-config version="1.2" 
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+	
+	<!-- managed beans of the simple hello world app -->
+	<managed-bean>
+		<managed-bean-name>helloWorld</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.blank.HelloWorldController</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>adminUserBean</managed-bean-name>
+        <managed-bean-class>info.shelfunit.james.web.AdminUserBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <description>A bean to manage users: Add, change, delete.</description>
+        <managed-bean-name>userManagerBean</managed-bean-name>
+        <managed-bean-class>info.shelfunit.james.web.UserManagerBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+           <property-name>userNameToDrop</property-name>
+           <value>#{param.dropName}</value> <!-- Inject request parameter "paramName" -->
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>optionsPropertiesBean</managed-bean-name>
+        <managed-bean-class>info.shelfunit.util.OptionsPropertiesBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+	<!-- navigation rules for helloWorld.jsp -->
+	<navigation-rule>
+		<from-view-id>/helloWorld.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/page2.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- navigation rules for page2.jsp -->
+	<navigation-rule>
+		<from-view-id>/page2.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>back</from-outcome>
+			<to-view-id>/helloWorld.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+    <navigation-rule>
+        <description>This is the rule to log in to the app</description>
+        <from-view-id>/jsp/loginForm.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{adminUserBean.loginAction}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/adminMainPage.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{adminUserBean.loginAction}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to list the users from the main page</description>
+        <from-view-id>/jsp/adminMainPage.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfUsers}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/listUsers.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfUsers}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to list the users from the side page</description>
+        <from-view-id>/WEB-INF/html/header.html</from-view-id>
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfUsers}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/listUsers.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfUsers}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to list inbox messages</description>
+        <from-view-id>/jsp/adminMainPage.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfInboxMessages}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/listInboxMessages.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{adminUserBean.getListOfInboxMessages}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to delete the dead letter contents</description>
+        <from-view-id>/jsp/adminMainPage.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{adminUserBean.deleteDeadLetterContents}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/operationSuccessful.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{adminUserBean.deleteDeadLetterContents}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/jsp/badLoginResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to drop a user from the listInboxMessages.jsp page</description>
+        <from-view-id>/jsp/listInboxMessages.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{userManagerBean.dropUser}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/operationSuccessful.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{userManagerBean.dropUser}</from-action>
+            <from-outcome>dropUserDoesNotExist</from-outcome>
+            <to-view-id>/jsp/dropUserDoesNotExist.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to add users to the database</description>
+        <from-view-id>/jsp/addUserForm.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{userManagerBean.addUser}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/operationSuccessful.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{userManagerBean.addUser}</from-action>
+            <from-outcome>duplicateUser</from-outcome>
+            <to-view-id>/jsp/addUserDuplicate.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>This is the rule to drop users from the database from the dropUserForm.jsp page</description>
+        <from-view-id>/jsp/dropUserForm.jsp</from-view-id>
+        <navigation-case>
+            <from-action>#{userManagerBean.dropUser}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/jsp/operationSuccessful.jsp</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{userManagerBean.dropUser}</from-action>
+            <from-outcome>dropUserDoesNotExist</from-outcome>
+            <to-view-id>/jsp/dropUserDoesNotExist.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+</faces-config>
+

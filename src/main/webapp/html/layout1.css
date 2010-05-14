@@ -1,0 +1,90 @@
+/* Shelf Space dot Net Stylesheet - Borrowed/taken/stolen from glish.com/bluerobot.com
+ */
+body {
+	margin:0px;
+	padding:0px;
+	font-family:verdana, arial, helvetica, sans-serif;
+	color:#000;
+	background-color:white;
+        text-align:justify;
+	}
+h1 {
+	margin:0px 0px 15px 0px;
+	padding:0px;
+	font-size:28px;
+	line-height:28px;
+	font-weight:900;
+	color:#ccc;
+	}
+p {
+	/* font:11px/20px verdana, arial, helvetica, sans-serif; */
+	font:12px/15px verdana, arial, helvetica, sans-serif;
+	margin:0px 0px 0px 0px;
+	padding:0px;
+	}
+#Content>p { margin:0px; }
+
+li { font-size:12px; }
+td { font-size:12px; }
+
+a {
+	/* color:#09c; */
+        color:#33f;
+	font-size:12px;
+	text-decoration:none;
+	font-weight:600;
+	font-family:verdana, arial, helvetica, sans-serif;
+}
+
+a:link { color:#33f; }
+a:visited { color:#60c; }
+a:hover { background-color:#eee; }
+
+#Logo {
+	height:0px;
+	padding:10px 5px 0px 20px;
+}
+
+#HeadText{ 
+           text-decoration:none;
+}
+
+#Header {
+	margin:50px 0px 10px 0px;
+	padding:10px 0px 0px 10px;
+	/* For IE5/Win's benefit height = 
+           [correct height] + [top padding] + 
+           [top and bottom border widths] 
+        */
+	height: 33px;  /* 14px + 17px + 2px = 33px */
+	border-style:solid;
+	border-color:black;
+	border-width:1px 0px; /* top and bottom borders: 1px; left and right borders: 0px */
+	line-height:10px;
+	background-color:#eee;
+        font-size:11px; /* allows text in the Header besides a link */
+
+	height:14px; /* the correct height */
+	}
+
+body>#Header { height:14px; } 
+
+#Content {
+	margin:0px 50px 50px 200px;
+	padding:10px;
+}
+
+#Menu {
+	position:absolute;
+
+	left:20px;
+	width:172px;
+	padding:10px;
+	line-height:17px;
+	width:150px;
+}
+
+.warning { font-weight: bold;
+       color: red;
+}
+

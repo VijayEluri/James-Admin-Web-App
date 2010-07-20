@@ -1,9 +1,9 @@
 package org.apache.james.admin.webapp.beans;
 
-import info.shelfunit.james.hibernate.pojos.Users;
-import info.shelfunit.hibernate.james.web.NewHibernateUtil;
-import info.shelfunit.util.OptionsPropertiesBean;
-import info.shelfunit.util.ShelfLogger;
+import org.apache.james.admin.webapp.hibernate.pojos.Users;
+import org.apache.james.admin.webapp.hibernate.NewHibernateUtil;
+import org.apache.james.admin.webapp.util.OptionsPropertiesBean;
+import org.apache.james.admin.webapp.util.ShelfLogger;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;

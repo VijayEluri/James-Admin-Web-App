@@ -7,22 +7,17 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
 	
 	<!-- managed beans of the simple hello world app -->
-	<managed-bean>
-		<managed-bean-name>helloWorld</managed-bean-name>
-		<managed-bean-class>org.apache.myfaces.blank.HelloWorldController</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
 
     <managed-bean>
         <managed-bean-name>adminUserBean</managed-bean-name>
-        <managed-bean-class>info.shelfunit.james.web.AdminUserBean</managed-bean-class>
+        <managed-bean-class>org.apache.james.admin.webapp.beans.AdminUserBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     
     <managed-bean>
         <description>A bean to manage users: Add, change, delete.</description>
         <managed-bean-name>userManagerBean</managed-bean-name>
-        <managed-bean-class>info.shelfunit.james.web.UserManagerBean</managed-bean-class>
+        <managed-bean-class>org.apache.james.admin.webapp.beans.UserManagerBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
            <property-name>userNameToDrop</property-name>

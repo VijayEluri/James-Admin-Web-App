@@ -1,0 +1,14 @@
+README
+
+You will need to set up your Apache James server to store users and messages in a database.
+
+To run this, you must have a James database running. I use MySQL. The app uses Hibernate, so you should be able to use other databases as well.
+Download the source from github.
+Untar/unzip it.
+You will need to add database info to src/main/resources/hibernate.cfg.xml
+You should be able to run "mvn clean" and get a successful build
+You can run "mvn test" and get a successful build. You will see a stack trace in a successful build. One of the tests trys to add a duplicate entry database, and this causes a stack trace.
+
+The URL is http://localhost:8080/JamesAdminWebApp/jsp/adminMainPage.jsf
+
+

@@ -9,8 +9,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import info.shelfunit.hibernate.james.web.NewHibernateUtil;
-import info.shelfunit.james.hibernate.pojos.Users;
+import org.apache.james.admin.webapp.hibernate.NewHibernateUtil;
+import org.apache.james.admin.webapp.hibernate.pojos.Users;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import java.util.List;

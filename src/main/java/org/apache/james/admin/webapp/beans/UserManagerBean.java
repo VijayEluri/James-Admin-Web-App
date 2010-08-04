@@ -141,7 +141,7 @@ public class UserManagerBean {
     } // end method addUser
     
 
-    public void changeUserPassword() {
+    public synchronized void changeUserPassword() {
         Logger logger = this.shelfLogger.getLogger();
         logger.warn( "in method changeUserPassword" );
 

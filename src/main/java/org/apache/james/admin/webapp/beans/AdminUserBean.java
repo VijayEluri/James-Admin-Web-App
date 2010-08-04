@@ -260,7 +260,7 @@ public class AdminUserBean {
 
     } // end method findDeadletterCount
 
-    public String deleteDeadLetterContents() {
+    public synchronized String deleteDeadLetterContents() {
         String resultString = "success";
         Logger logger = shelfLogger.getLogger();
 
@@ -345,7 +345,7 @@ public class AdminUserBean {
         } // end try/catch
     } // end method digestString
 // */
-    public String getListOfInboxMessages( ) {
+    public synchronized String getListOfInboxMessages( ) {
         String resultString = "success";
         Logger logger = shelfLogger.getLogger();
         Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();

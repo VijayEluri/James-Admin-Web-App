@@ -5,8 +5,8 @@
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jamesemail</property>
-    <property name="hibernate.connection.username">james-db-admin</property>
-    <property name="hibernate.connection.password">4STPY6ie</property>
+    <property name="hibernate.connection.username">$DB_USERNAME</property>
+    <property name="hibernate.connection.password">$DB_PASSWORD</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
     <!-- configuration pool via c3p0-->

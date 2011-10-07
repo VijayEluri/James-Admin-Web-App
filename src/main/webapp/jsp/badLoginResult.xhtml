@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    
+    <h:body>
+            <!-- ui:include src="/WEB-INF/html/header.html" / -->
+    
+     <a href="#{request.contextPath}/jsp/loginForm.faces">Login</a> <br />
+<a href="#{request.contextPath}/jsp/adminMainPage.faces">Admin Main Page</a><br />
+<a href="#{request.contextPath}/jsp/listUsers.faces">List Users</a> <br />
+<a href="#{request.contextPath}/jsp/addUserForm.faces">Add A User</a><br />
+<a href="#{request.contextPath}/jsp/dropUserForm.faces">Drop A User</a><br />
+<a href="#{request.contextPath}/jsp/listInboxMessages.faces">List Inbox Messages</a><br />
+<a href="#{request.contextPath}/jsp/logOutForm.faces">Log out</a> <br />
+    <h1>Login Result</h1>
+    <p>Oops. Try <a href="#{request.contextPath}/jsp/loginForm.faces">again</a>.</p>
+    
+        <!-- ui:include src="/WEB-INF/html/footer.html" / -->
+    
+    </h:body>
+    
+</html>
+

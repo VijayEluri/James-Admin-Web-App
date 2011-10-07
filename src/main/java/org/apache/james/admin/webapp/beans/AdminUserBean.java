@@ -1,18 +1,7 @@
-/*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.apache.james.admin.webapp.beans;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import org.apache.james.admin.webapp.hibernate.pojos.Users;
 import org.apache.james.admin.webapp.hibernate.NewHibernateUtil;
@@ -21,29 +10,19 @@ import org.apache.james.admin.webapp.util.ShelfLogger;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-// import javax.mail.MessagingException;
-// import javax.mail.internet.MimeUtility;
-
-import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Iterator;
-
 
 /**
  *
  * @author ericm
  */
+@ManagedBean
+@SessionScoped
 public class AdminUserBean {
-
+    
     private String userName;
     private String password;
     private String passAlgo;
@@ -52,15 +31,18 @@ public class AdminUserBean {
     private ShelfLogger shelfLogger;
     private OptionsPropertiesBean optionBean;
 
-    private List<Users> userList;
-    private List<InboxCountHolder> inboxCountHolderList;
+    private String someVar;
+    
+    private List< Users > userList;
+    private List< InboxCountHolder > inboxCountHolderList;
 
     /** Creates a new instance of AdminUserBean */
     public AdminUserBean() {
 
         try {
             this.shelfLogger = ShelfLogger.getInstance();
-            this.optionBean = OptionsPropertiesBean.getInstance();
+            this.optionBean  = OptionsPropertiesBean.getInstance();
+            
             Logger logger = this.shelfLogger.getLogger();
             logger.fatal( "In constructor for AdminUserBean" );
             // get the DeadletterCount at the beginning
@@ -70,10 +52,10 @@ public class AdminUserBean {
             e.printStackTrace( System.out );
         } finally {
             this.setLoggedIn( 0 );
-            // this.loggedIn = 0;
+            this.loggedIn = 0;
         } // end try/catch/finally
     } // end constructor
-
+    
     /**
      * @return the userName
      */
@@ -128,52 +110,54 @@ public class AdminUserBean {
      * or not. 1 == logged in, 0 == not logged in.
      * @param loggedIn the loggedIn to set
      */
-    public synchronized void setLoggedIn( int loggedIn ) {
+    public synchronized void setLoggedIn( int loggedIna ) {
         Logger logger = shelfLogger.getLogger();
-        logger.warn( "Incoming arg loggedIn is " + loggedIn );
+        logger.warn( "Incoming arg loggedIn is " + loggedIna );
         logger.warn( "At beginning of setLoggedIn, Bean var loggedIn = " + this.getLoggedIn() );
-        if ( ( loggedIn != 1 ) && ( loggedIn != 0 ) ) {
+        if ( ( loggedIna != 1 ) && ( loggedIna != 0 ) ) {
             this.loggedIn = 0;
         } else {
-            this.loggedIn = loggedIn;
+            this.loggedIn = loggedIna;
         }
         logger.warn( "At end of setLoggedIn, Bean var loggedIn = " + this.getLoggedIn() );
     } // end method setLoggedIn
 
     public synchronized String loginAction() {
         Logger logger = shelfLogger.getLogger();
-        String result = "failure";
+        String result = "badLoginResult";
         try {
-        logger.warn( "Starting loginAction, loggedIn set to " + this.getLoggedIn() +
-            " result = " + result
-        );
+            logger.warn( "Starting loginAction, loggedIn set to " + this.getLoggedIn() +
+                " result = " + result
+            );
 
-        List userNameList = optionBean.getUserNameList();
-        List userPassList = optionBean.getUserPassList();
-        logger.warn( "Size of userNameList: " + userNameList.size() );
+            List userNameList = optionBean.getUserNameList();
+            List userPassList = optionBean.getUserPassList();
+            logger.warn( "Size of userNameList: " + userNameList.size() );
 
-        @SuppressWarnings( "unchecked" ) // I hate this - perhaps it is time for Spring?
-        Iterator<String> iterator = userNameList.iterator();
-        logger.warn( "About to try it a bit differently" );
-        String temp;
-        while ( iterator.hasNext() ) {
-            temp = iterator.next();
-            logger.warn( "temp is " + temp );
-            logger.warn( "User name is " + this.userName );
-            if ( this.getUserName().equals( temp ) ) {
-                result = "success";
-                this.setLoggedIn( 1 );
-                logger.warn( "We have a match: " + this.getUserName() +
-                    " is the same as " + temp
-                );
-                logger.warn( "At end of loop, loggedIn == " + this.getLoggedIn() +
-                    " result = " + result
-                );
-            } // if ( this.getUserName().equals( temp ) )
-            logger.warn( "At end of loop, loggedIn == " + this.getLoggedIn() );
-        } // end while ( iterator.hasNext() )
-        logger.warn( "Leaving loginAction, loggedIn == " + this.getLoggedIn() );
-        logger.warn( "At end of loginAction, here is result: " + result );
+            @SuppressWarnings( "unchecked" ) // I hate this - perhaps it is time for Spring?
+            Iterator< String > iterator = userNameList.iterator();
+            logger.warn( "About to try it a bit differently" );
+            String temp;
+            
+            while ( iterator.hasNext() ) {
+                temp = iterator.next();
+                logger.warn( "temp is " + temp );
+                logger.warn( "User name is " + this.userName );
+                if ( this.getUserName().equals( temp ) ) {
+                    result = "adminMainPage";
+                    this.setLoggedIn( 1 );
+                    logger.warn( "We have a match: " + this.getUserName() +
+                        " is the same as " + temp
+                    );
+                    logger.warn( "At end of loop, loggedIn == " + this.getLoggedIn() +
+                        " result = " + result
+                    );
+                } // if ( this.getUserName().equals( temp ) )
+                logger.warn( "At end of loop, loggedIn == " + this.getLoggedIn() );
+            } // end while ( iterator.hasNext() )
+            
+            logger.warn( "Leaving loginAction, loggedIn == " + this.getLoggedIn() );
+            logger.warn( "At end of loginAction, here is result: " + result );
         } catch ( NullPointerException npEx ) {
             logger.info( npEx.getMessage() );
             logger.info( npEx.getClass() );
@@ -197,7 +181,7 @@ public class AdminUserBean {
     // deleted user on the list
     public synchronized String getListOfUsers() {
 
-        String methodResult = "failure";
+        String methodResult = "badLoginResult";
         Logger logger = shelfLogger.getLogger();
 
         Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();
@@ -205,16 +189,17 @@ public class AdminUserBean {
         session.beginTransaction();
 
         @SuppressWarnings( "unchecked" )
-        List<Users> tempList = session.createQuery( "from Users" ).list();
+        List< Users > tempList = session.createQuery( "from Users" ).list();
                 // java.util.Collections.checkedList(  session.createQuery( "from Users" ).list(), Users.class );
         try {
             if ( this.userList.size() > 0 ) {
                 this.userList.clear();
             }
-        } catch ( NullPointerException npEx ) {}
+        } catch ( NullPointerException npEx ) {
+        }
         this.setUserList( tempList );
-        // this.setUserList( ( List<Users> ) session.createQuery( "from Users" ).list() );
-        // this.setUserList( java.util.Collections.checkedList( ( List<Users> ) session.createQuery( "from Users" ).list(), Users.class ) );
+        // this.setUserList( ( List< Users > ) session.createQuery( "from Users" ).list() );
+        // this.setUserList( java.util.Collections.checkedList( ( List< Users > ) session.createQuery( "from Users" ).list(), Users.class ) );
 
         session.getTransaction().commit();
 
@@ -225,21 +210,21 @@ public class AdminUserBean {
             );
         } // for ( int i = 0; i < userList.size(); i++ )
 
-        methodResult = "success";
+        methodResult = "listUsers";
         return methodResult;
     } // end method getListOfUsers
 
     /**
      * @return the userList
      */
-    public synchronized List<Users> getUserList() {
+    public synchronized List< Users > getUserList() {
         return userList;
     }
 
     /**
      * @param userList the userList to set
      */
-    public synchronized void setUserList( List<Users> userList ) {
+    public synchronized void setUserList( List< Users > userList ) {
         this.userList = userList;
     }
 
@@ -260,7 +245,7 @@ public class AdminUserBean {
 
     } // end method findDeadletterCount
 
-    public synchronized String deleteDeadLetterContents() {
+    public String deleteDeadLetterContents() {
         String resultString = "success";
         Logger logger = shelfLogger.getLogger();
 
@@ -292,67 +277,15 @@ public class AdminUserBean {
     public synchronized void setDeadLetterCount( long deadLetterCount ) {
         this.deadLetterCount = deadLetterCount;
     }
-/*
-    public String addUser() throws NoSuchAlgorithmException {
-        String resultString = "success";
-        Logger logger = shelfLogger.getLogger();
-        logger.warn( "in method addUser" );
-
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-
-        for ( int i = 0; i < 100000; i++ ) {
-            // Customer customer = new Customer(.....);
-            // session.save(customer);
-        } // for ( int i = 0; i < 100000; i++ )
-
-        String name = "hello2";
-        String algo = "SHA-384";
-        String passRaw = "lumbaLumba";
-        String passAlgo = this.digestString( passRaw, algo );
-        logger.warn( "About to add user " + name + " with pass " + passRaw );
-        logger.warn( "Algorithm is " + passAlgo + " converted password is: " + passAlgo );
-
-        Users user = new Users();
-        user.setUsername( name );
-        user.setPwdAlgorithm( algo );
-        user.setPwdHash( passAlgo );
-        session.save( user );
-
-        session.getTransaction().commit();
-        session.close();
-        return resultString;
-    } // end method addUser
-*/
-/*
-    public static String digestString( String pass, String algorithm )
-    throws NoSuchAlgorithmException {
-
-        MessageDigest md;
-        ByteArrayOutputStream bos;
-
-        try {
-            md = MessageDigest.getInstance( algorithm );
-            byte[] digest = md.digest( pass.getBytes( "iso-8859-1" ) );
-            bos = new ByteArrayOutputStream();
-            OutputStream encodedStream = MimeUtility.encode( bos, "base64" );
-            encodedStream.write( digest );
-            return bos.toString("iso-8859-1");
-        } catch ( IOException ioe ) {
-            throw new RuntimeException( "Fatal error: " + ioe );
-        } catch ( MessagingException me ) {
-            throw new RuntimeException( "Fatal error: " + me );
-        } // end try/catch
-    } // end method digestString
-// */
+    
     public synchronized String getListOfInboxMessages( ) {
-        String resultString = "success";
-        Logger logger = shelfLogger.getLogger();
+        String resultString = "listInboxMessages";
+        Logger logger   = shelfLogger.getLogger();
         Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();
         logger.warn( "Got session" );
         session.beginTransaction();
 
-        List<InboxCountHolder> icList = new ArrayList<InboxCountHolder>();
+        List< InboxCountHolder > icList = new ArrayList< InboxCountHolder >();
         // this.getInboxCountHolderList();
         Iterator results = session.createQuery(
         "select inbox.recipients, count( recipients ) from Inbox inbox " +
@@ -360,49 +293,53 @@ public class AdminUserBean {
         .list()
         .iterator();
         logger.warn( "Got the result, about to start the loop" );
+        
         while ( results.hasNext() ) {
 
             Object[] row = ( Object[] ) results.next();
             String recip = ( String ) row[ 0 ];
             Long countR  = ( Long ) row[ 1 ];
             logger.warn( "Here is new object: recip: " + recip + " count: " + countR );
-            InboxCountHolder icHolder = new InboxCountHolder();
-            icHolder.setUserName( recip );
-            icHolder.setMessageCount( countR );
+            InboxCountHolder icHolder = new InboxCountHolder( recip, countR );
             icList.add( icHolder );
         } // while ( iterator.hasNext() )
+        
         logger.warn( "About to call adminUserBean.setInboxCountHolderList( icList )" );
         this.setInboxCountHolderList( icList );
         logger.warn( "Size of icList: " + icList.size() );
         session.getTransaction().commit();
         if ( icList.size() == 0 ) {
-            resultString = "zero";
+            resultString = "badLoginResult";
         } // if ( icList.size() == 0 )
-        /*
-        Iterator<InboxCountHolder> iterator = icList.iterator();
-        logger.warn( "Trying again with the new objects" );
-        while ( iterator.hasNext() ) {
-            InboxCountHolder inbox = ( InboxCountHolder ) iterator.next();
-            logger.warn( "Here is the recip: " + inbox.getUserName() +
-                " count: " + inbox.getMessageCount()
-            );
-        } // while ( iterator.hasNext() )
-        */
+       
         return resultString;
     } // end method getListOfInboxMessages
 
     /**
      * @return the inboxCountHolderList
      */
-    public List<InboxCountHolder> getInboxCountHolderList() {
+    public List< InboxCountHolder > getInboxCountHolderList() {
         return inboxCountHolderList;
     }
 
     /**
      * @param inboxCountHolderList the inboxCountHolderList to set
      */
-    public void setInboxCountHolderList(List<InboxCountHolder> inboxCountHolderList) {
+    public void setInboxCountHolderList( List< InboxCountHolder > inboxCountHolderList ) {
         this.inboxCountHolderList = inboxCountHolderList;
     }
 
-} // end class info.shelfunit.james.web.AdminUserBean
+    /**
+     * @return the someVar
+     */
+    public String getSomeVar() {
+        return someVar;
+    }
+
+    /**
+     * @param someVar the someVar to set
+     */
+    public void setSomeVar( String someVar ) {
+        this.someVar = someVar;
+    }
+}

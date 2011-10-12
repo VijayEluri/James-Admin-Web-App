@@ -11,4 +11,6 @@ You can run "mvn test" and get a successful build. You will see a stack trace in
 
 The URL is http://localhost:8080/JamesAdminWebApp/jsp/adminMainPage.jsf
 
+Right now when I run it in Netbeans it does not work as a Maven project. I had to make a Netbeans web project and copy the files to a Maven project in another directory. So you might have to migrate the project to some IDE to get it to work.
+
 

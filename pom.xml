@@ -53,36 +53,36 @@
         -->
 
         <repository>
-            <id>Sonatype</id>
-            <name>Sonatype Repsitory</name>
-            <layout>default</layout>
-            <url>http://repository.sonatype.org/content/repositories/central</url>
-	    <releases><enabled>true</enabled><updatePolicy>always</updatePolicy></releases>
-	    <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+	  <id>Sonatype</id>
+	  <name>Sonatype Repsitory</name>
+	  <layout>default</layout>
+	  <url>http://repository.sonatype.org/content/repositories/central</url>
+	  <releases><enabled>true</enabled><updatePolicy>always</updatePolicy></releases>
+	  <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
         </repository>
 
-      <repository>
-       <snapshots>
-         <enabled>false</enabled>
-       </snapshots>
-       <id>central</id>
-       <name>Maven Repository Switchboard</name>
-       <url>http://repo1.maven.org/maven2</url>
-      </repository>
+	<repository>
+	  <snapshots>
+	    <enabled>false</enabled>
+	  </snapshots>
+	  <id>central</id>
+	  <name>Maven Repository Switchboard</name>
+	  <url>http://repo1.maven.org/maven2</url>
+	</repository>
        
         <repository>
-            <id>JBoss</id>
-            <name>JBoss Repsitory</name>
-            <layout>default</layout>
-	    <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+	  <id>JBoss</id>
+	  <name>JBoss Repsitory</name>
+	  <layout>default</layout>
+	  <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
         </repository>
 
 
         <repository>
-            <url>http://download.java.net/maven/2/</url>
-            <id>hibernate-support</id>
-            <layout>default</layout>
-            <name>Repository for library Library[hibernate-support]</name>
+	  <url>http://download.java.net/maven/2/</url>
+	  <id>hibernate-support</id>
+	  <layout>default</layout>
+	  <name>Repository for library Library[hibernate-support]</name>
         </repository>
         
     </repositories>
@@ -90,120 +90,128 @@
     <!-- Project dependencies -->
     <dependencies>
 
+<!--
+      <dependency>
+	<groupId>c3p0</groupId>
+	<artifactId>c3p0</artifactId>
+	<version>0.9.1.2</version>
+      </dependency>
+-->
 
-        <dependency>
-          <groupId>c3p0</groupId>
-          <artifactId>c3p0</artifactId>
-          <version>0.9.1.2</version>
-        </dependency>
 
-    <dependency>
-      <groupId>com.sun.faces</groupId>
-      <artifactId>jsf-api</artifactId>
-      <version>2.0.0-b13</version>
-      <scope>compile</scope>
-    </dependency>
+      <dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-c3p0</artifactId>
+	<version>4.2.4.Final</version>
+      </dependency>
+
+      <dependency>
+	<groupId>com.sun.faces</groupId>
+	<artifactId>jsf-api</artifactId>
+	<version>2.0.0-b13</version>
+	<scope>compile</scope>
+      </dependency>
  
-    <dependency>
-      <groupId>com.sun.faces</groupId>
-      <artifactId>jsf-impl</artifactId>
-      <version>2.0.0-b13</version>
-      <scope>compile</scope>
-    </dependency>
+      <dependency>
+	<groupId>com.sun.faces</groupId>
+	<artifactId>jsf-impl</artifactId>
+	<version>2.0.0-b13</version>
+	<scope>compile</scope>
+      </dependency>
 
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-            <scope>runtime</scope>
-        </dependency>
+      <dependency>
+	<groupId>jstl</groupId>
+	<artifactId>jstl</artifactId>
+	<version>1.2</version>
+	<scope>runtime</scope>
+      </dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.0</version>
-            <scope>test</scope>
-        </dependency>
+      <dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.0</version>
+	<scope>test</scope>
+      </dependency>
         
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.14</version>
-        </dependency>
+      <dependency>
+	<groupId>log4j</groupId>
+	<artifactId>log4j</artifactId>
+	<version>1.2.14</version>
+      </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.5.2</version>
-        </dependency>
+      <dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-log4j12</artifactId>
+	<version>1.5.2</version>
+      </dependency>
 
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
-        </dependency>
+      <dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-core</artifactId>
+	<version>4.2.4.Final</version>
+      </dependency>
         
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>3.2.5.ga</version>
-        </dependency>
+      <dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate</artifactId>
+	<version>3.2.5.ga</version>
+      </dependency>
         
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.3.2.GA</version>
-        </dependency>
+      <dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-entitymanager</artifactId>
+	<version>3.3.2.GA</version>
+      </dependency>
 
-        <dependency>
-            <groupId>javax.sql</groupId>
-            <artifactId>jdbc-stdext</artifactId>
-            <version>2.0</version>
-        </dependency>
+      <dependency>
+	<groupId>javax.sql</groupId>
+	<artifactId>jdbc-stdext</artifactId>
+	<version>2.0</version>
+      </dependency>
 
-        <dependency>
-            <groupId>javax.transaction</groupId>
-            <artifactId>jta</artifactId>
-            <version>1.0.1B</version>
-        </dependency>
+      <dependency>
+	<groupId>javax.transaction</groupId>
+	<artifactId>jta</artifactId>
+	<version>1.0.1B</version>
+      </dependency>
         
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>ejb3-persistence</artifactId>
-            <version>1.0.1.GA</version>
-        </dependency>
+      <dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>ejb3-persistence</artifactId>
+	<version>1.0.1.GA</version>
+      </dependency>
         
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
-        </dependency>
+      <dependency>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+	<version>5.1.6</version>
+      </dependency>
 
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <version>1.1.0</version>
-        </dependency>
+      <dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>jstl</artifactId>
+	<version>1.1.0</version>
+      </dependency>
 
-	<dependency>
-	  <groupId>javax.mail</groupId>
-	  <artifactId>javax.mail-api</artifactId>
-	  <version>1.5.0</version>
-	</dependency>
+      <dependency>
+	<groupId>javax.mail</groupId>
+	<artifactId>javax.mail-api</artifactId>
+	<version>1.5.0</version>
+      </dependency>
 
-	<dependency>
-	  <groupId>javax.mail</groupId>
-	  <artifactId>mail</artifactId>
-	  <version>1.5.0-b01</version>
-	</dependency>
+      <dependency>
+	<groupId>javax.mail</groupId>
+	<artifactId>mail</artifactId>
+	<version>1.5.0-b01</version>
+      </dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
-            <scope>provided</scope>
-        </dependency>
-      </dependencies>
+      <dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>servlet-api</artifactId>
+	<version>2.4</version>
+	<scope>provided</scope>
+      </dependency>
+    </dependencies>
 
 </project>
 

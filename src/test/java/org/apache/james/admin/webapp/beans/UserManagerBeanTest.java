@@ -13,6 +13,7 @@ import org.apache.james.admin.webapp.hibernate.NewHibernateUtil;
 import org.apache.james.admin.webapp.hibernate.pojos.Users;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,11 +86,13 @@ public class UserManagerBeanTest {
      */
     @Test
     public void testAddUserHibernate() throws Exception {
-        
+        String hUserName = UUID.randomUUID().toString();
         logger.info( "testAddUserHibernate" );
         UserManagerBean instance = new UserManagerBean();
 	logger.info("About to get the session");
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
+	SessionFactory sf = NewHibernateUtil.getSessionFactory();
+        Session session = sf.openSession();
+
 	logger.info("Got the session" );
         session.beginTransaction();
 	logger.info("About to begin transaction");
@@ -100,7 +103,7 @@ public class UserManagerBeanTest {
         + " order by username";
 
         Query q = session.createQuery( queryString );
-        q.setString( "theName", this.getHibernateUserName() + "%" );
+        q.setString( "theName", hUserName + "%" );
         List userList = q.list();
         // user does not exist
         org.junit.Assert.assertEquals( 0, userList.size() );
@@ -108,7 +111,7 @@ public class UserManagerBeanTest {
         String passAlgo = instance.digestString( pass, algorithm );
 
         Users user = new Users();
-        user.setUsername( this.getHibernateUserName() );
+        user.setUsername( hUserName );
         user.setPwdAlgorithm( algorithm );
         user.setPwdHash( passAlgo );
         session.save( user );
@@ -116,12 +119,24 @@ public class UserManagerBeanTest {
         session.getTransaction().commit();
 
         q = session.createQuery( queryString );
-        q.setString( "theName", this.getHibernateUserName() + "%" );
+        q.setString( "theName", hUserName + "%" );
         List userList2 = q.list();
         session.close();
         // user does exist
         org.junit.Assert.assertEquals( 1, userList2.size() );
-        
+
+	// drop the user
+	session = NewHibernateUtil.getSessionFactory().openSession();
+	session.beginTransaction();
+	session.delete(userList2.get(0) );
+	session.getTransaction().commit();
+	// get the user
+	q = session.createQuery( queryString );
+        q.setString( "theName", hUserName + "%" );
+	userList2.clear();
+	userList2 = q.list();
+	org.junit.Assert.assertEquals( 0, userList2.size() );
+	session.close();
     } // end method testAddUserHibernate
 
     /**

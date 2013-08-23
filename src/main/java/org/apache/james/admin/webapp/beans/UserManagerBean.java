@@ -134,7 +134,9 @@ public class UserManagerBean {
             logger.warn( "ConstraintExpception: perhaps user " + getUsername() + " already exists" );
             logger.warn( cvEx.getMessage() );
             result = "duplicateUser";
-        } // end try/catch
+        } finally {
+	    session.getTransaction().rollback();
+	} // end try/catch
         
         session.close();
         return result;

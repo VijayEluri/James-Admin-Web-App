@@ -16,6 +16,10 @@ import org.hibernate.Session;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.james.admin.webapp.util.ShelfLogger;
+import org.apache.log4j.Logger;
+
+
 /**
  *
  * @author ericm
@@ -24,13 +28,18 @@ public class UserManagerBeanTest {
 
     private String username;
     private String hibernateUserName;
+    private static ShelfLogger shelfLogger;
+    private static Logger logger;
 
     public UserManagerBeanTest() {
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+	shelfLogger = ShelfLogger.getInstance();
 
+	logger = shelfLogger.getLogger();
+	logger.fatal( "In UserManagerBeanTest" );
     }
 
     @AfterClass
@@ -55,17 +64,18 @@ public class UserManagerBeanTest {
      */
     @Test
     public void testDigestString() throws Exception {
-        System.out.println( "digestString" );
+        logger.info( "digestString" );
 
         Integer theInt = new Integer( this.hashCode() );
         String pass = theInt.toString();
         String algorithm = "SHA-256";
         UserManagerBean instance = new UserManagerBean();
+	logger.info("We got the bean");
         String result1 = instance.digestString( pass, algorithm );
         String result2 = instance.digestString( pass, algorithm );
-        System.out.println( "Here is the password: " + pass );
-        System.out.println( "result1: " + result1 );
-        System.out.println( "result2: " + result2 );
+        logger.info( "Here is the password: " + pass );
+        logger.info( "result1: " + result1 );
+        logger.info( "result2: " + result2 );
         org.junit.Assert.assertEquals( result1, result2 );
     } // end method testDigestString()
 
@@ -76,12 +86,13 @@ public class UserManagerBeanTest {
     @Test
     public void testAddUserHibernate() throws Exception {
         
-        System.out.println( "testAddUserHibernate" );
+        logger.info( "testAddUserHibernate" );
         UserManagerBean instance = new UserManagerBean();
-
+	logger.info("About to get the session");
         Session session = NewHibernateUtil.getSessionFactory().openSession();
+	logger.info("Got the session" );
         session.beginTransaction();
-
+	logger.info("About to begin transaction");
         Integer theInt = new Integer( this.hashCode() );
         String pass = theInt.toString();
         String algorithm = "SHA-256";
@@ -120,10 +131,11 @@ public class UserManagerBeanTest {
     @Test
     public void testAddUser() throws Exception {
         
-        System.out.println( "testAddUser" );
+        logger.info( "testAddUser" );
         UserManagerBean instance = new UserManagerBean();
-
+	logger.info("About to get the session");
         Session session = NewHibernateUtil.getSessionFactory().openSession();
+	logger.info("Got the session, about to begin transaction");
         session.beginTransaction();
 
         Integer theInt = new Integer( this.hashCode() );
@@ -160,8 +172,8 @@ public class UserManagerBeanTest {
             result = instance.addUser();
             org.junit.Assert.assertTrue( result.equalsIgnoreCase( "duplicateUser" ) );
         } catch ( Exception e ) {
-            System.out.println( "Intentional exception" );
-            System.out.println( e.getMessage() );
+            logger.info( "Intentional exception" );
+            logger.info( e.getMessage() );
         }
       
     } // end method testAddUser
@@ -171,7 +183,7 @@ public class UserManagerBeanTest {
      */
     @Test
     public void testChangeUser() {
-        System.out.println( "changeUser" );
+        logger.info( "changeUser" );
         UserManagerBean instance = new UserManagerBean();
         // instance.changeUser();
         // TODO review the generated test code and remove the default call to fail.
@@ -183,7 +195,7 @@ public class UserManagerBeanTest {
      */
     @Test
     public void testDropUser() {
-        System.out.println( "dropUser" );
+        logger.info( "dropUser" );
         ActionEvent e = null;
         UserManagerBean instance = new UserManagerBean();
         String expResult = "";

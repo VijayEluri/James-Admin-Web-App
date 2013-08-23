@@ -14,6 +14,8 @@ import org.apache.james.admin.webapp.hibernate.pojos.Users;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -91,10 +93,10 @@ public class UserManagerBeanTest {
         UserManagerBean instance = new UserManagerBean();
 	logger.info("About to get the session");
 	SessionFactory sf = NewHibernateUtil.getSessionFactory();
-        Session session = sf.openSession();
+        Session session = NewHibernateUtil.openSession();
 
 	logger.info("Got the session" );
-        session.beginTransaction();
+        Transaction tx = session.beginTransaction();
 	logger.info("About to begin transaction");
         Integer theInt = new Integer( this.hashCode() );
         String pass = theInt.toString();
@@ -116,7 +118,7 @@ public class UserManagerBeanTest {
         user.setPwdHash( passAlgo );
         session.save( user );
 
-        session.getTransaction().commit();
+        tx.commit();
 
         q = session.createQuery( queryString );
         q.setString( "theName", hUserName + "%" );
@@ -127,9 +129,9 @@ public class UserManagerBeanTest {
 
 	// drop the user
 	session = NewHibernateUtil.getSessionFactory().openSession();
-	session.beginTransaction();
+	tx = session.beginTransaction();
 	session.delete(userList2.get(0) );
-	session.getTransaction().commit();
+	tx.commit();
 	// get the user
 	q = session.createQuery( queryString );
         q.setString( "theName", hUserName + "%" );
@@ -146,7 +148,7 @@ public class UserManagerBeanTest {
     @Test
     public void testAddUser() throws Exception {
         
-        logger.info( "testAddUser" );
+        logger.warn( "in testAddUser" );
         UserManagerBean instance = new UserManagerBean();
 	logger.info("About to get the session");
         Session session = NewHibernateUtil.getSessionFactory().openSession();
@@ -181,10 +183,11 @@ public class UserManagerBeanTest {
         session.close();
         // user does exist
         org.junit.Assert.assertEquals( 1, userList2.size() );
-
+	logger.warn( "About to try adding user again" );
         // try adding user again
         try {
             result = instance.addUser();
+	    logger.warn("result in test: " + result);
             org.junit.Assert.assertTrue( result.equalsIgnoreCase( "duplicateUser" ) );
         } catch ( Exception e ) {
             logger.info( "Intentional exception" );

@@ -23,6 +23,8 @@ import org.apache.log4j.Logger;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import org.hibernate.exception.ConstraintViolationException;
 
 import java.io.ByteArrayOutputStream;
@@ -113,9 +115,10 @@ public class UserManagerBean {
             return "passwordsNotEqual";
         } */
 
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+        Session session = NewHibernateUtil.openSession();
+        Transaction tx = session.beginTransaction();
         try  {
+	    // tx = session.beginTransaction();
 
             // String passAlgo = this.digestString( getPassword(), getAlgorithm() );
             String passAlgo = this.digestString( getPassword(), getAlgorithm() );
@@ -127,18 +130,27 @@ public class UserManagerBean {
             user.setUsername( getUsername() );
             user.setPwdAlgorithm( getAlgorithm() );
             user.setPwdHash( passAlgo );
+	    logger.warn( "About to call session save" );
             session.save( user );
-            session.getTransaction().commit();
+	    logger.warn( "About to commit" );
+            tx.commit();
+	    logger.warn( "Just commited" );
             this.setStatusMessage( "The user " + this.getUsername() + " was added to the database" );
         } catch ( ConstraintViolationException cvEx ) {
             logger.warn( "ConstraintExpception: perhaps user " + getUsername() + " already exists" );
             logger.warn( cvEx.getMessage() );
+	    // cvEx.printStackTrace(System.out);
+	    if (tx!=null) {
+		tx.rollback();
+	    }
             result = "duplicateUser";
+	} catch (Exception e) {
+	    e.printStackTrace(System.out);
         } finally {
-	    session.getTransaction().rollback();
+	    session.close();
 	} // end try/catch
+        logger.warn("result is: " + result);
         
-        session.close();
         return result;
     } // end method addUser
     

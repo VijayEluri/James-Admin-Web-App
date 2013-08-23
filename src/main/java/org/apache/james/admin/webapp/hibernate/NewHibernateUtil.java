@@ -33,11 +33,11 @@ public class NewHibernateUtil {
         return sessionFactory;
     }
 
-    public Session openSession() {
+    public static Session openSession() {
 	return sessionFactory.openSession();
     }
 
-    public Session getCurrentSession() {
+    public static Session getCurrentSession() {
 	return sessionFactory.getCurrentSession();
     }
 

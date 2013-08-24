@@ -184,7 +184,7 @@ public class AdminUserBean {
         String methodResult = "badLoginResult";
         Logger logger = shelfLogger.getLogger();
 
-        Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = NewHibernateUtil.getCurrentSession();
         logger.warn( "Got session" );
         session.beginTransaction();
 
@@ -232,7 +232,7 @@ public class AdminUserBean {
         String resultString = "success";
         Logger logger = shelfLogger.getLogger();
 
-        Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = NewHibernateUtil.getCurrentSession();
         logger.warn( "Got session" );
         session.beginTransaction();
 
@@ -249,7 +249,7 @@ public class AdminUserBean {
         String resultString = "success";
         Logger logger = shelfLogger.getLogger();
 
-        Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = NewHibernateUtil.getCurrentSession();
         logger.warn( "Got session" );
         session.beginTransaction();
         logger.warn( "About to create query" );
@@ -281,7 +281,7 @@ public class AdminUserBean {
     public synchronized String getListOfInboxMessages( ) {
         String resultString = "listInboxMessages";
         Logger logger   = shelfLogger.getLogger();
-        Session session = NewHibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = NewHibernateUtil.getCurrentSession();
         logger.warn( "Got session" );
         session.beginTransaction();
 

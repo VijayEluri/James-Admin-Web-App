@@ -21,20 +21,25 @@ import java.util.UUID;
 
 import org.apache.james.admin.webapp.util.ShelfLogger;
 import org.apache.log4j.Logger;
+import info.shelfunit.hibernate.TestSessionBuilder;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 
 
 /**
  *
  * @author ericm
  */
-public class UserManagerBeanTest {
+public class MockUserManagerBeanTest {
 
     private String username;
     private String hibernateUserName;
     private static ShelfLogger shelfLogger;
     private static Logger logger;
 
-    public UserManagerBeanTest() {
+    public MockUserManagerBeanTest() {
     }
 
     @BeforeClass

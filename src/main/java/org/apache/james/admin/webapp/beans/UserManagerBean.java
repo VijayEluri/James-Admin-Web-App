@@ -159,7 +159,7 @@ public class UserManagerBean {
         Logger logger = this.shelfLogger.getLogger();
         logger.warn( "in method changeUserPassword" );
 
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Session session = NewHibernateUtil.openSession();
         session.beginTransaction();
 
         String queryString = "from Users where username like :theName"
@@ -194,7 +194,7 @@ public class UserManagerBean {
         Logger logger = this.shelfLogger.getLogger();
         logger.warn( "in method dropUser with arg " + userNameToDrop );
 
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Session session = NewHibernateUtil.openSession();
         session.beginTransaction();
 
         String queryString = "from Users where username like :theName"

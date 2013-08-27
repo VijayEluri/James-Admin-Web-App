@@ -1,0 +1,7 @@
+mvn test -Dtest=
+mvn test -Dtest=org.apache.james.admin.webapp.beans.UserManagerBeanTest
+mvn test -Dtest=org.apache.james.admin.webapp.beans.UserManagerBeanTest#testAddUser
+mvn test -Dtest=org.apache.james.admin.webapp.beans.UserManagerBeanTest#testAddUserHibernate
+mvn test -Dtest=org.apache.james.admin.webapp.beans.MockUserManagerBeanTest
+
+

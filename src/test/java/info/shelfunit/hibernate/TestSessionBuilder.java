@@ -11,7 +11,7 @@ public class TestSessionBuilder {
 
     public TestSessionBuilder() {}
 
-    public static Session getSession() {
+    public Session getSession() {
 
 	String prefix = "org/apache/james/admin/webapp/hibernate/pojos/";
 	Configuration configuration = new Configuration();

@@ -147,7 +147,7 @@ public class UserManagerBeanTest {
      */
     @Test
     public void testAddUser() throws Exception {
-        
+        String theUserName = UUID.randomUUID().toString();
         logger.warn( "in testAddUser" );
         UserManagerBean instance = new UserManagerBean();
 	logger.info("About to get the session");
@@ -162,14 +162,14 @@ public class UserManagerBeanTest {
         + " order by username";
 
         Query q = session.createQuery( queryString );
-        q.setString( "theName", this.getUsername() + "%" );
+        q.setString( "theName", theUserName + "%" );
         List userList = q.list();
         // user does not exist
         org.junit.Assert.assertEquals( 0, userList.size() );
 
         String passAlgo = instance.digestString( pass, algorithm );
 
-        instance.setUsername( this.getUsername() );
+        instance.setUsername( theUserName );
         instance.setPassword( pass );
         instance.setAlgorithm( algorithm );
         String result = instance.addUser();
@@ -178,7 +178,7 @@ public class UserManagerBeanTest {
         session.getTransaction().commit();
 
         q = session.createQuery( queryString );
-        q.setString( "theName", this.getUsername() + "%" );
+        q.setString( "theName", theUserName + "%" );
         List userList2 = q.list();
         session.close();
         // user does exist
@@ -193,6 +193,9 @@ public class UserManagerBeanTest {
             logger.info( "Intentional exception" );
             logger.info( e.getMessage() );
         }
+	instance.setUserNameToDrop( theUserName );
+	result = instance.dropUser();
+	org.junit.Assert.assertTrue( result.equalsIgnoreCase( "success" ) );
       
     } // end method testAddUser
 

@@ -11,5 +11,10 @@ commit;
 
 mysql --user=james-test-admin --password=test-word-to-pass < /home/ericm/github/James-Admin-Web-App/db.schema.test.txt
 mysql --user james-test-admin --password test-word-to-pass --database=jamesemailtest
-mysql --user=james-test-admin --password=test-word-to-pass --database=jamesemailtest
-http://localhost:8084/JamesAdminJSF2/
+mysql --user=james-test-admin --password=test-word-to-pass --database=jamesemailtest  
+http://localhost:8084/JamesAdminJSF2/   
+
+mysql --user=james-web-test01 --password=chumba-wumba --database=jamesemail  
+://localhost:3306/jamesemail</property>
+
+

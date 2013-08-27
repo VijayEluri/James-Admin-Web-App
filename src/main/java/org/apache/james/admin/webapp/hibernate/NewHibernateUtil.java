@@ -4,10 +4,11 @@
  */
 package org.apache.james.admin.webapp.hibernate;
 
-// import org.hibernate.cfg.AnnotationConfiguration;
+/// import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
+// import org.apache.james.admin.webapp.hibernate.pojos.*;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory object.
@@ -22,7 +23,13 @@ public class NewHibernateUtil {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) config file.
 	    // ORIG: sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+            // sessionFactory = new Configuration().configure().buildSessionFactory();
+	    sessionFactory = new Configuration().configure().buildSessionFactory();
+	    /*
+	    .addAnnotatedClass(SuperHero.class)
+		.addAnnotatedClass(SuperPower.class)
+		.addAnnotatedClass(SuperPowerType.class)
+	    */
         } catch (Throwable ex) {
             // Log the exception. 
             System.out.println("Initial SessionFactory creation failed." + ex);

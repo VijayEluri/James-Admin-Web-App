@@ -18,9 +18,17 @@
     <property name="hibernate.c3p0.min_size">10</property>
     <property name="hibernate.c3p0.timeout">100</property>
     <!-- seconds -->
+<!--
     <mapping resource="org/apache/james/admin/webapp/hibernate/pojos/Deadletter.hbm.xml"/>
     <mapping resource="org/apache/james/admin/webapp/hibernate/pojos/Users.hbm.xml"/>
     <mapping resource="org/apache/james/admin/webapp/hibernate/pojos/Inbox.hbm.xml"/>
     <mapping resource="org/apache/james/admin/webapp/hibernate/pojos/Spool.hbm.xml"/>
+-->
+
+    <mapping class="org.apache.james.admin.webapp.hibernate.pojos.Deadletter" />
+    <mapping class="org.apache.james.admin.webapp.hibernate.pojos.Users" />
+    <mapping class="org.apache.james.admin.webapp.hibernate.pojos.Inbox" />
+    <mapping class="org.apache.james.admin.webapp.hibernate.pojos.Spool" />
+
   </session-factory>
 </hibernate-configuration>

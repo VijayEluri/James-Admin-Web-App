@@ -10,7 +10,7 @@ flush privileges;
 commit;
 
 mysql --user=james-test-admin --password=test-word-to-pass < /home/ericm/github/James-Admin-Web-App/db.schema.test.txt
-mysql --user james-test-admin --password test-word-to-pass --database=jamesemailtest
+mysql --user james-test-admin --password=test-word-to-pass --database=jamesemailtest
 mysql --user=james-test-admin --password=test-word-to-pass --database=jamesemailtest  
 http://localhost:8084/JamesAdminJSF2/   
 

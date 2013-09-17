@@ -4,9 +4,11 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jamesemail</property>
     <property name="hibernate.connection.username">james-web-test01</property>
     <property name="hibernate.connection.password">chumba-wumba</property>
+
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
     <!-- configuration pool via c3p0-->

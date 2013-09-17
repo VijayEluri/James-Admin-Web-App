@@ -23,5 +23,6 @@ tree*txt
 # for Maven projects
 *class
 *jar
-/target/*
+JSF/target/*
+struts2/target/*
 #- EOF
